@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #  Django taggit
+    'taggit',
+
     # REST Framework
     'rest_framework',
 
@@ -57,7 +60,8 @@ INSTALLED_APPS = [
     'app.core',
     'app.user',
     'app.role',
-    'app.category'
+    'app.category',
+    'app.blog'
 ]
 
 MIDDLEWARE = [
