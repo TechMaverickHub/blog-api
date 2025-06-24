@@ -45,6 +45,7 @@ urlpatterns = [
     path('api/category/', include('app.category.urls')),
     path('api/article/', include('app.article.urls')),
     path('api/tag/', include('app.tag.urls')),
+    path('api/like/', include('app.like.urls')),
 ]
 
 if settings.DEBUG:
