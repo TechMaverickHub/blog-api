@@ -61,7 +61,8 @@ INSTALLED_APPS = [
     'app.user',
     'app.role',
     'app.category',
-    'app.blog'
+    'app.tag',
+    'app.blog',
 ]
 
 MIDDLEWARE = [
