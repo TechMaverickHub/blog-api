@@ -85,6 +85,8 @@ python manage.py makemigrations user
 python manage.py makemigrations category
 python manage.py makemigrations tag
 python manage.py makemigrations article
+python manage.py makemigrations like
+python manage.py makemigrations comment
 ```
 
 ### ⚙️ Apply Migrations
