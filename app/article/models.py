@@ -1,11 +1,9 @@
-import uuid
-
 from django.contrib.auth import get_user_model
 from django.db import models
-from taggit.managers import TaggableManager
+from django.utils.translation import gettext_lazy as _
 
 from app.category.models import Category
-from django.utils.translation import gettext_lazy as _
+from app.tag.models import Tag
 
 
 # Create your models here.
@@ -18,19 +16,32 @@ class BlogPost(models.Model):
         PUBLISHED = "Accepted", _("Accepted")
 
     # Key declarations
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='user_blog_posts',
-                             related_query_name='user_blog_post')
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='category_blog_posts',
-                                 related_query_name='category_blog_posts')
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name='user_blog_posts',
+        related_query_name='user_blog_post'
+    )
 
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name='category_blog_posts',
+        related_query_name='category_blog_post')
+
+    tags = models.ManyToManyField(
+        Tag,
+        blank=True,
+        related_name='tagged_blog_posts',
+        related_query_name='tagged_blog_post'
+    )
 
     # Field Declaration
     title = models.CharField(max_length=255)
     content = models.TextField()
     excerpt = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='blog_images/', blank=True, null=True)
-    tags = TaggableManager(blank=True)
 
     status = models.CharField(max_length=10, choices=StatusChoice, default=StatusChoice.DRAFT.value)
     is_featured = models.BooleanField(default=False)
