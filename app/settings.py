@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'app.tag',
     'app.article',
     'app.like',
+    'app.comment',
 ]
 
 MIDDLEWARE = [
