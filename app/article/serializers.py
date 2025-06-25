@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 from app.article.models import BlogPost
 from app.category.models import Category
+from app.comment.models import Comment
 from app.tag.models import Tag
 
 
@@ -37,6 +38,8 @@ class BlogPostCreateSerializer(serializers.ModelSerializer):
 
 
 class BlogPostDisplaySerializer(serializers.ModelSerializer):
+    likes = serializers.SerializerMethodField()
+
     class Meta:
         model = BlogPost
         fields = ('pk',
@@ -47,7 +50,13 @@ class BlogPostDisplaySerializer(serializers.ModelSerializer):
                   'category',
                   'tags',
                   'status',
-                  'user',)
+                  'user',
+                  'likes',)
+
+    def get_likes(self, obj):
+        return obj.post_likes.count()
+
+
 class BlogPostListFilterDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
@@ -86,3 +95,8 @@ class BlogPostUpdateSerializer(serializers.ModelSerializer):
             instance.tags.set(tags_data)
 
 
+class PostCommentDisplaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('pk',
+                  'content')

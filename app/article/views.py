@@ -10,7 +10,8 @@ from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from app.article.models import BlogPost
-from app.article.serializers import BlogPostCreateSerializer, BlogPostDisplaySerializer, BlogPostUpdateSerializer
+from app.article.serializers import BlogPostCreateSerializer, BlogPostDisplaySerializer, BlogPostUpdateSerializer, \
+    PostCommentDisplaySerializer
 from app.category.models import Category
 from app.core.views import CustomPageNumberPagination
 from app.global_constants import SuccessMessage, ErrorMessage
@@ -190,6 +191,33 @@ class BlogListFilterAPIView(ListAPIView):
     )
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
+
+
+class PostCommentListFilterAPIView(ListAPIView):
+    """View: Post Comment List Filter(Only User)"""
+
+    permission_classes = [IsUser]
+    authentication_classes = [JWTAuthentication]
+    serializer_class = PostCommentDisplaySerializer
+    pagination_class = CustomPageNumberPagination
+
+    def get_queryset(self):
+
+        blog = BlogPost.objects.filter(id=self.request.query_params.get('blog_post')).first()
+
+        comments_queryset = blog.post_comments.filter(is_active=True).order_by('-created')
+
+        return comments_queryset
+
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('blog_post', openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='Blog Post', required=True),
+        ]
+    )
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+
 
 
 
