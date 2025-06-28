@@ -24,6 +24,9 @@ class ErrorMessage(str, Enum):
 
     THROTTLE_LIMIT_EXCEEDED = "Throttle Limit Exceeded"
 
+    CATEGORY_NOT_FOUND = "Category not found"
+    POST_ALREADY_LIKE = "Post already liked"
+
 class GlobalValues(int, Enum):
 
     # User Role

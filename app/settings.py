@@ -57,7 +57,11 @@ INSTALLED_APPS = [
     'app.core',
     'app.user',
     'app.role',
-    'app.category'
+    'app.category',
+    'app.tag',
+    'app.article',
+    'app.like',
+    'app.comment',
 ]
 
 MIDDLEWARE = [

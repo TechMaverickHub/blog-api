@@ -13,7 +13,7 @@ from app.category.serializers import CategoryCreateSerializer, CategoryDisplaySe
 from app.core.views import CustomPageNumberPagination
 from app.global_constants import SuccessMessage, ErrorMessage
 from app.utils import get_response_schema
-from permissions import IsAdmin
+from permissions import IsAdmin, IsUser, IsAdminOrUser
 
 logger = logging.getLogger('django')
 
@@ -154,7 +154,7 @@ class CategoryListFilterAPIView(ListAPIView):
     pagination_class = CustomPageNumberPagination
 
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAdmin]
+    permission_classes = [IsAdminOrUser]
 
     def get_queryset(self):
 

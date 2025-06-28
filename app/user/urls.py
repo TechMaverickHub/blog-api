@@ -17,7 +17,7 @@ urlpatterns = [
 
     # Superadmin views
     path('admin-list-filter/', AdminListFilter.as_view(), name='admin-list-filter'),
-    path('<str:pk>', UserDetailAPI.as_view(), name='user-detail')
+    path('<int:pk>', UserDetailAPI.as_view(), name='user-detail')
 
 
 

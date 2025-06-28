@@ -1,9 +1,8 @@
 from django.db import models
 
-
 # Create your models here.
-class Category(models.Model):
-    """Blog post categories like 'Tech', 'Life', 'Travel'"""
+class Tag(models.Model):
+    """Tag Model"""
 
     name = models.CharField(max_length=100, unique=True)
 

@@ -6,7 +6,7 @@ from app.category.models import Category
 class CategoryCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('name',)
+        fields = ('pk', 'name',)
 
     def validate_name(self, value):
         name = value.strip()
@@ -15,6 +15,7 @@ class CategoryCreateSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Category already in use")
 
         return name.capitalize()
+
 
 class CategoryUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,10 +30,12 @@ class CategoryUpdateSerializer(serializers.ModelSerializer):
 
         return name.capitalize()
 
+
 class CategoryDisplaySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ('name',)
+
 
 class CategoryListFilterDisplaySerializer(serializers.ModelSerializer):
     class Meta:

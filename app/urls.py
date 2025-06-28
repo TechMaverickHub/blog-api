@@ -43,6 +43,10 @@ urlpatterns = [
     # App URLs
     path('api/user/', include('app.user.urls')),
     path('api/category/', include('app.category.urls')),
+    path('api/article/', include('app.article.urls')),
+    path('api/tag/', include('app.tag.urls')),
+    path('api/like/', include('app.like.urls')),
+    path('api/comment/', include('app.comment.urls')),
 ]
 
 if settings.DEBUG:
